@@ -55,4 +55,19 @@ User.init(
   }
 );
 
+// create our User model
+class User extends Model {
+  // set up method to run on instance data (per user) to check password
+  checkPassword(loginPw) {
+    return bcrypt.compareSync(loginPw, this.password);
+  }
+}
+
+if (!validPassword) {
+  res.status(400).json({ message: 'Incorrect password!' });
+  return;
+}
+
+res.json({ user: dbUserData, message: 'You are now logged in!' });
+
 module.exports = User;
